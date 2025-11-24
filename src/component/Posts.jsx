@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState  } from 'react'
-import { getPosts } from '../Api/PostAPi'
+import { deletePost, getPosts } from '../Api/PostAPi'
 
 const Posts = () => {
 
@@ -16,6 +16,17 @@ const getPostData = async () => {
     }
 }
 
+const handleDeletePost = (id) => {
+   deletePost(id);
+
+    const updatedPosts = post.filter((item) => item.id !== id); 
+
+    setPost(updatedPosts);
+}
+
+
+
+
 
 useEffect(() => {
     getPostData()
@@ -27,7 +38,8 @@ useEffect(() => {
         <h1 className='text-3xl font-semibold mb-4 text-center'>All Posts</h1>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {post.map((item) => (
-                <div key={item.id} className='bg-linear-to-r from-blue-500 to-purple-400 p-4 rounded shadow'>
+                <div key={item.id} onClick={() => handleDeletePost(item.id)} className='bg-linear-to-r from-blue-500 to-purple-400 p-4 rounded shadow'>
+                    <span>{item.id}</span>
                     <h2 className='text-xl font-semibold mb-2'>{item.title}</h2>
                     <p>{item.body}</p>
                     <div className="mt-2">
