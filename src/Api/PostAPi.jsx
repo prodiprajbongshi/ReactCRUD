@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com',
+  baseURL: "https://jsonplaceholder.typicode.com",
 });
 
 
@@ -18,3 +18,9 @@ export const deletePost = async (id) => {
  
   return response.data;
 }
+
+// post method
+export const addPost = async (post) => {
+ return api.post("/posts", post);
+
+};
