@@ -4,6 +4,8 @@ import Form from "./Form";
 
 const Posts = () => {
   const [post, setPost] = useState([]);
+  const [updateData, setUpdateData] = useState({});
+ 
 
   const getPostData = async () => {
     try {
@@ -23,6 +25,12 @@ const Posts = () => {
     }
   };
 
+
+  const handleUpdatePost = (item) => {
+    setUpdateData(item);
+
+  }
+
   useEffect(() => {
     getPostData();
   }, []);
@@ -30,7 +38,7 @@ const Posts = () => {
   return (
     <div className="bg-[#171f29]">
       <section>
-        <Form posts={post} setPosts={setPost} />
+        <Form posts={post}  setPosts={setPost} updateData={updateData} setUpdateData={setUpdateData}  />
       </section>
 
       <section>
@@ -43,13 +51,13 @@ const Posts = () => {
                 <p>{item.body}</p>
 
                 <div className="mt-2">
-                  <button className="py-1 px-3 bg-green-500 rounded-md w-20 hover:bg-green-600">
+                  <button onClick={() => handleUpdatePost(item)} className="py-1 px-3 bg-green-500 cursor-pointer rounded-md w-20 hover:bg-green-600">
                     Edit
                   </button>
 
                   <button
                     onClick={() => handleDeletePost(item.id)}
-                    className="ms-2 py-1 px-3 bg-red-500 rounded-md w-20 hover:bg-red-600"
+                    className="ms-2 py-1 px-3 cursor-pointer bg-red-500 rounded-md w-20 hover:bg-red-600"
                   >
                     Delete
                   </button>

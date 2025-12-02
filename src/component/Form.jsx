@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addPost } from "../Api/PostAPi";
 
-const Form = ({ posts, setPosts }) => {
+const Form = ({ posts, setPosts, updateData, setUpdateData }) => {
   const [addData, setAddData] = useState({
     title: "",
     body: ""
   });
+
+
+
+    useEffect(() => {
+      if(updateData && updateData.title && updateData.body){
+        setAddData({
+          title: updateData.title,
+          body: updateData.body
+        });
+      }
+  }, [updateData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,3 +76,12 @@ const Form = ({ posts, setPosts }) => {
 };
 
 export default Form;
+
+
+
+
+ 
+
+
+
+ 
