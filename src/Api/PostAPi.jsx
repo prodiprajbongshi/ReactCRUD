@@ -15,7 +15,6 @@ export const getPosts = async () => {
 // Delete method
 export const deletePost = async (id) => {
   const response = await api.delete(`/posts/${id}`);
- 
   return response.data;
 }
 

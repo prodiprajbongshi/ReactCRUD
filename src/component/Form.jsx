@@ -1,55 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { addPost } from "../Api/PostAPi";
+ 
 
-const Form = ({ posts, setPosts, updateData, setUpdateData }) => {
+const Form = ({ posts, setPosts }) => {
   const [addData, setAddData] = useState({
     title: "",
     body: ""
   });
 
-
-
-    useEffect(() => {
-      if(updateData && updateData.title && updateData.body){
-        setAddData({
-          title: updateData.title,
-          body: updateData.body
-        });
-      }
-  }, [updateData]);
-
-  const handleInputChange = (e) => {
+const handleFormChange = (e) => {
     const { name, value } = e.target;
-
-    setAddData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    setAddData((prevData) => ({ ...prevData, [name]: value }));
   };
+ 
 
-  const addPostData = async () => {
-    const response = await addPost(addData);
+  const addNewPost = async () => {
+    const res = await addPost()
+    setPosts([res.data, ...posts]);
+    setAddData({
+      title: "",
+      body: ""
+    });
+  }
 
-    if (response.status === 201) {
-      // update post list instantly
-      setPosts([...posts, response.data]);
-
-      // reset form
-      setAddData({ title: "", body: "" });
-    }
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();  
-    addPostData();
-  };
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    addNewPost()
+  }
+  
 
   return (
     <div className="container mx-auto flex items-center justify-center pt-8 pb-4">
-      <form onSubmit={handleOnSubmit} className="bg-[#21303a] px-4 py-3">
+      <form onSubmit={handleFormSubmit} className="bg-[#21303a] px-4 py-3">
         <input
           value={addData.title}
-          onChange={handleInputChange}
+         onChange={handleFormChange}
           placeholder="Enter Title"
           className="border bg-white px-2 py-2"
           type="text"
@@ -58,7 +43,7 @@ const Form = ({ posts, setPosts, updateData, setUpdateData }) => {
 
         <input
           value={addData.body}
-          onChange={handleInputChange}
+           onChange={handleFormChange}
           placeholder="Enter Content"
           className="border bg-white px-2 py-2 mx-4"
           type="text"
