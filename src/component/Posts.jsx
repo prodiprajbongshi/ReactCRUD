@@ -38,7 +38,7 @@ const Posts = () => {
   return (
     <div className="bg-[#171f29]">
       <section>
-        <Form posts={post}  setPosts={setPost}   />
+        <Form posts={post}  setPosts={setPost} setUpdateData={setUpdateData} updateData={updateData}  />
       </section>
 
       <section>

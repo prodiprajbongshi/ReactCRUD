@@ -23,3 +23,9 @@ export const addPost = async (post) => {
  return api.post("/posts", post);
 
 };
+
+
+//put method
+export const updateDataApi = (id, post) => {
+  return api.put(`/posts/${id}`, post);
+};
